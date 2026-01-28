@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Caroline Dawson</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- GLOBAL VARIABLES & RESET --- */
+        :root {
+            --bg-body: #000000;
+            --bg-gradient-body: linear-gradient(120deg, #050505 0%, #000000 100%);
+            --bg-card: #151516;
+            --bg-gradient-card: linear-gradient(180deg, #151516 0%, #0f0f10 100%);
+
+            /* Polished Gold Gradient - Subtle & Elegant */
+            --accent-gold: #D4AF37;
+            --gold-gradient: linear-gradient(135deg, #c5a046 0%, #e6ce8a 50%, #b8933a 100%);
+
+            --text-white: #F5F5F7;
+            --text-gray: #86868b;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-gradient-body);
+            background-color: var(--bg-body);
+            background-attachment: fixed;
+            color: var(--text-white);
+            line-height: 1.5;
+            overflow-x: hidden;
+            font-size: 17px;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        a,
+        button {
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.022em;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        /* --- UTILITIES --- */
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-padding {
+            padding: 120px 0;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .section-subtitle {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            display: inline-block;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #F5F5F7;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 24px 0;
+            z-index: 1000;
+            transition: all 0.4s ease;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+        }
+
+        .navbar.scrolled {
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.03em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: var(--text-gray);
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #fff;
+        }
+
+        /* --- BUTTONS & ACCENTS --- */
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            background: var(--gold-gradient);
+            color: #000000;
+            font-weight: 700;
+            font-size: 15px;
+            border-radius: 980px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px -10px rgba(212, 175, 55, 0.5);
+            filter: brightness(1.1);
+            background: var(--gold-gradient);
+        }
+
+        .text-highlight {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Animation Classes */
+        .hidden-section {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 1.5s ease, transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+            /* Blur Removed */
+        }
+
+        .show-section {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-1 {
+            transition-delay: 100ms;
+        }
+
+        .stagger-2 {
+            transition-delay: 200ms;
+        }
+
+        .stagger-3 {
+            transition-delay: 300ms;
+        }
+
+        /* --- CONTACT HERO --- */
+        #contact-hero {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: #000;
+            background: radial-gradient(circle at 50% 30%, #1a1a1a 0%, #000000 70%);
+            padding-top: 60px;
+        }
+
+        #contact-hero h1 {
+            font-size: 56px;
+            line-height: 1.1;
+        }
+
+        /* --- CONTACT CONTENT LAYOUT --- */
+        #contact-main {
+            background-color: var(--bg-body);
+            padding-bottom: 120px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 40px;
+            margin-top: -50px;
+        }
+
+        /* LEFT COLUMN: INFO */
+        .info-card {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border-subtle);
+            height: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 40px;
+        }
+
+        .info-icon {
+            font-size: 20px;
+            color: var(--accent-gold);
+            margin-right: 20px;
+            margin-top: 2px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .info-text h4 {
+            font-size: 16px;
+            margin-bottom: 4px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .info-text p,
+        .info-text a {
+            color: var(--text-gray);
+            font-size: 15px;
+        }
+
+        .info-text a:hover {
+            color: #fff;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFF;
+            font-size: 16px;
+        }
+
+        .social-btn:hover {
+            background: #FFF;
+            color: #000;
+            border-color: #FFF;
+        }
+
+        /* RIGHT COLUMN: FORM */
+        .form-wrapper {
+            background: #151516;
+            padding: 48px;
+            border-radius: 32px;
+            border: 1px solid var(--border-subtle);
+            position: relative;
+            z-index: 2;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid transparent;
+            padding: 16px;
+            color: #fff;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- MAP SECTION --- */
+        #location-map {
+            height: 400px;
+            width: 100%;
+            position: relative;
+            background: #111;
+            overflow: hidden;
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .map-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.5;
+            filter: grayscale(100%) invert(100%) contrast(90%);
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 32px;
+            border: 1px solid var(--border-subtle);
+            text-align: center;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                margin-top: 0;
+            }
+
+            .info-card {
+                order: 2;
+            }
+
+            .form-wrapper {
+                order: 1;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            #contact-hero h1 {
+                font-size: 42px;
+            }
+        }
+
+        /* --- NAV CARDS (Internal Linking) --- */
+        .nav-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            padding: 32px;
+            border-radius: 20px;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-decoration: none;
+            height: 100%;
+        }
+
+        .nav-card:hover {
+            transform: translateY(-5px);
+            background: #1c1c1e;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-card h3 {
+            font-size: 20px;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .nav-card p {
+            font-size: 15px;
+            color: var(--text-gray);
+            margin-bottom: 24px;
+        }
+
+        .nav-link-text {
+            color: var(--accent-gold);
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link-text i {
+            margin-left: 8px;
+            transition: transform 0.3s;
+        }
+
+        .nav-card:hover .nav-link-text i {
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Removed -->
+
+    <section id="contact-hero" class="hidden-section">
+        <div class="container">
+            <span class="section-subtitle">Connect With Us</span>
+            <h1 class="section-title">Let's Start a <span class="text-highlight">Conversation</span></h1>
+            <p style="color: var(--text-gray); max-width: 600px; margin: 0 auto; font-size: 1.1rem;">
+                Whether you have a specific project in mind or just want to explore possibilities, we are here to listen
+                and lead the way.
+            </p>
+        </div>
+    </section>
+
+    <section id="contact-main">
+        <div class="container">
+            <div class="contact-grid">
+
+                <div class="info-card hidden-section stagger-1">
+                    <h3
+                        style="color: #fff; margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;">
+                        Contact Details</h3>
+
+                    <div class="info-item">
+                        <i class="fas fa-envelope info-icon"></i>
+                        <div class="info-text">
+                            <h4>Email Us</h4>
+                            <a href="mailto:hello@carolinedawson.com">hello@carolinedawson.com</a>
+                            <p style="font-size: 0.8rem; margin-top: 5px;">Response time: Within 24 hours</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <i class="fas fa-phone-alt info-icon"></i>
+                        <div class="info-text">
+                            <h4>Call Us</h4>
+                            <a href="tel:+15551234567">+1 (555) 123-4567</a>
+                            <p style="font-size: 0.8rem; margin-top: 5px;">Mon-Fri, 9am - 6pm (SGT)</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt info-icon"></i>
+                        <div class="info-text">
+                            <h4>Headquarters</h4>
+                            <p>12 Marina Boulevard, Tower 3<br>Singapore, 018982</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <i class="fas fa-globe info-icon"></i>
+                        <div class="info-text">
+                            <h4>Service Area</h4>
+                            <p>Available globally for virtual engagements.<br>In-person: Asia Pacific, Europe, UAE.</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 40px;">
+                        <h4 style="color: #fff; font-size: 0.9rem;">Follow Updates</h4>
+                        <div class="social-icons">
+                            <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-wrapper hidden-section stagger-2">
+                    <h3 style="color: #fff; margin-bottom: 20px;">Send a Message</h3>
+                    <form>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div class="form-group">
+                                <label>Your Name</label>
+                                <input type="text" placeholder="John Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Your Email</label>
+                                <input type="email" placeholder="john@company.com" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Inquiry Type</label>
+                            <select>
+                                <option>General Inquiry</option>
+                                <option>Book a Keynote</option>
+                                <option>Corporate Training</option>
+                                <option>Executive Coaching</option>
+                                <option>Media/Press</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea rows="6" placeholder="How can we help you transform your business?"
+                                required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    </section>
+
+    <section id="explore" class="section-padding hidden-section"
+        style="background: var(--bg-body); border-top: 1px solid var(--border-subtle);">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 40px;">
+                <span class="section-subtitle">Browse</span>
+                <h2 class="section-title">Other Pages</h2>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+                <a href="services.html" class="nav-card stagger-1">
+                    <div>
+                        <i class="fas fa-briefcase" style="font-size: 24px; color:#fff; margin-bottom: 16px;"></i>
+                        <h3>Services</h3>
+                        <p>See our full range of corporate training and coaching solutions.</p>
+                    </div>
+                    <span class="nav-link-text">View Offerings <i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="about.html" class="nav-card stagger-2">
+                    <div>
+                        <i class="fas fa-user-circle" style="font-size: 24px; color:#fff; margin-bottom: 16px;"></i>
+                        <h3>About Us</h3>
+                        <p>Discover the values and history driving our impact.</p>
+                    </div>
+                    <span class="nav-link-text">Read More <i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="index.html" class="nav-card stagger-3">
+                    <div>
+                        <i class="fas fa-home" style="font-size: 24px; color:#fff; margin-bottom: 16px;"></i>
+                        <h3>Home</h3>
+                        <p>Return to the homepage.</p>
+                    </div>
+                    <span class="nav-link-text">Go Home <i class="fas fa-arrow-right"></i></span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="location-map" class="hidden-section">
+        <img src="https://placehold.co/1920x600/ccc/000/png?text=World+Map+Texture" alt="Map" class="map-img">
+        <div class="map-overlay">
+            <h4 style="color: var(--accent-gold); margin-bottom: 5px;">Global Hub</h4>
+            <p style="color: #fff;">Singapore</p>
+        </div>
+    </section>
+
+    <script>
+        // Intersection Observer for Entrance Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show-section');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Navbar Scroll Effect REMOVED
+
+        // Trigger Hero Animation Immediately
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const hero = document.getElementById('contact-hero');
+                if (hero) hero.classList.add('show-section');
+            }, 100);
+        });
+
+        const sections = document.querySelectorAll('.hidden-section');
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+
+</html>

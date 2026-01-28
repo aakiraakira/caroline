@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Caroline Dawson</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- GLOBAL VARIABLES & RESET --- */
+        :root {
+            --bg-body: #000000;
+            --bg-gradient-body: linear-gradient(120deg, #050505 0%, #000000 100%);
+            --bg-card: #151516;
+            --bg-gradient-card: linear-gradient(180deg, #151516 0%, #0f0f10 100%);
+
+            /* Polished Gold Gradient - Subtle & Elegant */
+            --accent-gold: #D4AF37;
+            --gold-gradient: linear-gradient(135deg, #c5a046 0%, #e6ce8a 50%, #b8933a 100%);
+
+            --text-white: #F5F5F7;
+            --text-gray: #86868b;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-gradient-body);
+            background-color: var(--bg-body);
+            background-attachment: fixed;
+            color: var(--text-white);
+            line-height: 1.5;
+            overflow-x: hidden;
+            font-size: 17px;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        a,
+        button {
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.022em;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* --- UTILITIES --- */
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-padding {
+            padding: 120px 0;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .section-subtitle {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            display: inline-block;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #F5F5F7;
+            line-height: 1.1;
+        }
+
+        /* User requested removal of navbar styles */
+
+        /* --- BUTTONS & ACCENTS --- */
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            background: var(--gold-gradient);
+            color: #000000;
+            font-weight: 700;
+            font-size: 15px;
+            border-radius: 980px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px -10px rgba(212, 175, 55, 0.5);
+            filter: brightness(1.1);
+        }
+
+        .text-highlight {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Animation Classes */
+        .hidden-section {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 1.5s ease, transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+            /* Blur Removed */
+        }
+
+        .show-section {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-1 {
+            transition-delay: 100ms;
+        }
+
+        .stagger-2 {
+            transition-delay: 200ms;
+        }
+
+        .stagger-3 {
+            transition-delay: 300ms;
+        }
+
+        /* --- HERO --- */
+        #services-hero {
+            min-height: 90vh;
+            /* Taller for impact */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: #000;
+            background: radial-gradient(circle at 50% 30%, #1a1a1a 0%, #000000 70%);
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+            /* Contain marquees */
+        }
+
+        .hero-content {
+            z-index: 2;
+            max-width: 900px;
+            margin-bottom: 60px;
+        }
+
+        /* --- MARQUEE STYLES --- */
+        .marquee-container {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            margin-top: auto;
+            /* Push to bottom if space permits */
+            padding-bottom: 40px;
+        }
+
+        /* Awards Section */
+        .awards-band {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.02);
+            padding: 20px 0;
+            margin-bottom: 40px;
+        }
+
+        .marquee-wrapper {
+            display: flex;
+            width: 100%;
+            overflow: hidden;
+            /* Fade edges */
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .marquee-track {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            /* Space between items */
+            animation: scroll-left 40s linear infinite;
+            white-space: nowrap;
+            padding-left: 60px;
+            /* Offset start */
+        }
+
+        .marquee-track.reverse {
+            animation: scroll-right 40s linear infinite;
+        }
+
+        /* Speed adjustments */
+        .marquee-track.slow {
+            animation-duration: 60s;
+        }
+
+        .marquee-track.fast {
+            animation-duration: 30s;
+        }
+
+        .marquee-item img {
+            height: 40px;
+            /* Consistent height */
+            width: auto;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+            filter: grayscale(100%);
+        }
+
+        .marquee-item:hover img {
+            opacity: 1;
+            filter: grayscale(0%);
+        }
+
+        /* Keyframes */
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+
+            /* Assumes content is duplicated x2 to seamless loop. -50% moves exactly one set length */
+        }
+
+        @keyframes scroll-right {
+            0% {
+                transform: translateX(-50%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        /* --- SERVICES DEEP DIVE --- */
+        #service-list {
+            background-color: var(--bg-body);
+        }
+
+        .service-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            /* Increased gap for cleanliness */
+            align-items: center;
+            margin-bottom: 160px;
+            position: relative;
+        }
+
+        /* Service Pattern - Big Number Background */
+        .service-pattern {
+            position: absolute;
+            top: -60px;
+            font-size: 240px;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.02);
+            z-index: 0;
+            line-height: 1;
+            font-family: 'Inter', sans-serif;
+            user-select: none;
+        }
+
+        .service-row:nth-child(even) .service-pattern {
+            right: -40px;
+        }
+
+        .service-row:nth-child(odd) .service-pattern {
+            left: -40px;
+        }
+
+        .service-metric {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+        }
+
+        .metric-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-right: 16px;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            line-height: 1.3;
+        }
+
+        .service-row.alt .service-text {
+            order: 2;
+        }
+
+        .service-row.alt .service-image {
+            order: 1;
+        }
+
+        .service-image img {
+            border-radius: 24px;
+            box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .service-text h3 {
+            font-size: 32px;
+            margin-bottom: 24px;
+            color: #FFF;
+        }
+
+        .service-text p {
+            margin-bottom: 24px;
+            color: var(--text-gray);
+        }
+
+        .feature-list {
+            margin: 32px 0;
+        }
+
+        .feature-list li {
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            color: #F5F5F7;
+            font-size: 15px;
+        }
+
+        .feature-list li i {
+            color: var(--accent-gold);
+            margin-right: 16px;
+            font-size: 12px;
+        }
+
+        /* --- CASE STUDIES --- */
+        #case-studies {
+            background-color: #050505;
+        }
+
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 50px;
+        }
+
+        .case-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            padding: 40px;
+            border-radius: 24px;
+            transition: var(--transition);
+        }
+
+        .case-card:hover {
+            background: #1c1c1e;
+            transform: scale(1.01);
+        }
+
+        .stat-highlight {
+            font-size: 48px;
+            font-weight: 700;
+            color: #FFF;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .case-title {
+            color: var(--accent-gold);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 16px;
+            display: block;
+        }
+
+        /* --- THE PROCESS (Workflow) --- */
+        #process {
+            background-color: #000;
+        }
+
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 80px;
+            position: relative;
+        }
+
+        /* Connecting Line */
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 50px;
+            right: 50px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 0;
+        }
+
+        .step-item {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            width: 25%;
+            padding: 0 16px;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: #111;
+            border: 1px solid var(--border-subtle);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-weight: 700;
+            color: var(--accent-gold);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .step-item h4 {
+            color: #fff;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .step-item p {
+            font-size: 15px;
+            color: var(--text-gray);
+            line-height: 1.4;
+        }
+
+        /* --- QUOTE FORM --- */
+        #inquire {
+            background: #000;
+            padding: 140px 0;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .quote-form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: #151516;
+            padding: 56px;
+            border-radius: 32px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid transparent;
+            padding: 16px;
+            color: #fff;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+
+            /* Carousel Container */
+            .services-carousel {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 24px;
+                padding-bottom: 24px;
+                /* Space for scrollbar/swipe */
+                margin-left: -24px;
+                /* Break container padding */
+                margin-right: -24px;
+                padding-left: 24px;
+                padding-right: 24px;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* Hide scrollbar for clean look */
+            .services-carousel::-webkit-scrollbar {
+                display: none;
+            }
+
+            .service-row,
+            .service-row.alt {
+                /* Card Style for Carousel */
+                min-width: 85vw;
+                /* Show most of current, hint of next */
+                scroll-snap-align: center;
+                background: #151516;
+                padding: 32px;
+                border-radius: 24px;
+                border: 1px solid var(--border-subtle);
+
+                grid-template-columns: 1fr;
+                gap: 24px;
+                margin-bottom: 0;
+                /* Reset margin */
+                display: flex;
+                flex-direction: column;
+            }
+
+            .service-row.alt .service-text {
+                order: 1;
+                /* Reset order to text below image */
+            }
+
+            .service-row.alt .service-image {
+                order: 0;
+            }
+
+            .service-pattern {
+                font-size: 140px;
+                top: -20px;
+                right: 20px;
+                left: auto !important;
+                /* Always right */
+            }
+
+            .process-steps {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .process-steps::before {
+                width: 1px;
+                height: calc(100% - 50px);
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .step-item {
+                width: 100%;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* --- NAV CARDS (Internal Linking) --- */
+        .nav-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            padding: 32px;
+            border-radius: 20px;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-decoration: none;
+            height: 100%;
+        }
+
+        .nav-card:hover {
+            transform: translateY(-5px);
+            background: #1c1c1e;
+            border-color: rgba(255, 255, 255, 0.2);
+            /* filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.1)); */
+        }
+
+        .nav-card h3 {
+            font-size: 20px;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .nav-card p {
+            font-size: 15px;
+            color: var(--text-gray);
+            margin-bottom: 24px;
+        }
+
+        .nav-link-text {
+            color: var(--accent-gold);
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link-text i {
+            margin-left: 8px;
+            transition: transform 0.3s;
+        }
+
+        .nav-card:hover .nav-link-text i {
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar Removed -->
+
+    <section id="services-hero" class="hidden-section">
+        <div class="container hero-content">
+            <span class="section-subtitle">Professional Solutions</span>
+            <h1
+                style="font-size: 60px; font-weight: 700; margin-bottom: 24px; line-height: 1.1; background: linear-gradient(180deg, #FFFFFF 0%, #A1A1A6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                Elevate Your <span class="text-highlight">Organization</span>
+            </h1>
+            <p style="max-width: 700px; margin: 0 auto; color: var(--text-gray); font-size: 1.25rem;">
+                Comprehensive strategies and training designed to drive measurable business results.
+            </p>
+        </div>
+
+        <div class="marquee-container">
+            <!-- Row 1: Awards (Slow Left) -->
+            <div class="awards-band">
+                <div class="marquee-wrapper">
+                    <!-- Content Duplicated for Infinite Scroll -->
+                    <div class="marquee-track slow">
+                        <!-- Set 1 -->
+                        <div class="marquee-item"><img
+                                src="https://placehold.co/200x60/transparent/d4af37/png?text=Excellence+Award+2024"
+                                alt="Award"></div>
+                        <div class="marquee-item"><img
+                                src="https://placehold.co/200x60/transparent/d4af37/png?text=Top+Consultant+Asia"
+                                alt="Award"></div>
+                        <div class="marquee-item"><img
+                                src="https://placehold.co/200x60/transparent/d4af37/png?text=Speaker+of+the+Year"
+                                alt="Award"></div>
+                        <div class="marquee-item"><img
+                                src="https://placehold.co/200x60/transparent/d4af37/png?text=Best+Leadership+Program"
+                                alt="Award"></div>
+                        <div class="marquee-item"><img
+                                src="https://placehold.co/200x60/transparent/d4af37/png?text=Global+Visionary"
+                                alt="Award"></div>
+                        <!-- Set 2 (Duplicate) -->
+                        <div class="marquee-item"><img
+                                src="https://placehold.co/200x60/transparent/d4af37/png?text=Excellence+Award+2024"
+                                alt="Award"></div>
+                        <div class="marquee-item"><img
+                                src="https://placehold.co/200x60/transparent/d4af37/png?text=Top+Consultant+Asia"
+                                alt="Award"></div>
+                        <div class="marquee-item"><img
+                                src="https://placehold.co/200x60/transparent/d4af37/png?text=Speaker+of+the+Year"
+                                alt="Award"></div>
+                        <div class="marquee-item"><img
+                                src="https://placehold.co/200x60/transparent/d4af37/png?text=Best+Leadership+Program"
+                                alt="Award"></div>
+                        <div class="marquee-item"><img
+                                src="https://placehold.co/200x60/transparent/d4af37/png?text=Global+Visionary"
+                                alt="Award"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="service-list" class="section-padding hidden-section">
+        <div class="container">
+
+            <!-- Carousel Wrapper for Mobile -->
+            <div class="services-carousel">
+                <div class="service-row stagger-1">
+                    <span class="service-pattern">01</span>
+                    <div class="service-image">
+                        <img src="https://placehold.co/600x400/1a2a40/FFFFFF/png?text=Executive+Coaching"
+                            alt="Executive Coaching">
+                    </div>
+                    <div class="service-text">
+                        <span class="section-subtitle">One-on-One</span>
+                        <h3>Executive Coaching</h3>
+                        <p>Designed for C-suite executives and high-potential directors. We identify blind spots, refine
+                            leadership styles, and build resilience for high-pressure decision making.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Personalized Leadership Assessment</li>
+                            <li><i class="fas fa-check"></i> Strategic Decision-Making Frameworks</li>
+                            <li><i class="fas fa-check"></i> Emotional Intelligence Amplification</li>
+                        </ul>
+
+                        <div class="service-metric">
+                            <span class="metric-value">94%</span>
+                            <span class="metric-label">Clients Report<br>Career Advancement</span>
+                        </div>
+
+                        <div style="margin-top: 32px;">
+                            <a href="#inquire" class="btn">Book a Discovery Call</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-row alt stagger-2">
+                    <span class="service-pattern">02</span>
+                    <div class="service-image">
+                        <img src="https://placehold.co/600x400/1a2a40/FFFFFF/png?text=Corporate+Training"
+                            alt="Corporate Training">
+                    </div>
+                    <div class="service-text">
+                        <span class="section-subtitle">Team Development</span>
+                        <h3>Corporate Training Workshops</h3>
+                        <p>Interactive, high-energy workshops that align teams and boost productivity. From conflict
+                            resolution to cross-cultural management, we equip your workforce with actionable skills.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Team Alignment & Culture Building</li>
+                            <li><i class="fas fa-check"></i> Effective Communication Protocols</li>
+                            <li><i class="fas fa-check"></i> Change Management Simulation</li>
+                        </ul>
+
+                        <div class="service-metric">
+                            <span class="metric-value">3x</span>
+                            <span class="metric-label">Faster Conflict<br>Resolution</span>
+                        </div>
+
+                        <div style="margin-top: 32px;">
+                            <a href="#inquire" class="btn">Request Workshop Agenda</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-row stagger-3">
+                    <span class="service-pattern">03</span>
+                    <div class="service-image">
+                        <img src="https://placehold.co/600x400/1a2a40/FFFFFF/png?text=Keynote+Speaking"
+                            alt="Keynote Speaking">
+                    </div>
+                    <div class="service-text">
+                        <span class="section-subtitle">Global Events</span>
+                        <h3>Keynote Speaking</h3>
+                        <p>Inspire your audience with thought-provoking insights on the future of work, leadership, and
+                            resilience. Caroline delivers power-packed sessions customized for your event theme.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> "The Resilient Leader" (Signature Talk)</li>
+                            <li><i class="fas fa-check"></i> "Navigating Global Chaos"</li>
+                            <li><i class="fas fa-check"></i> Fully Customized Content</li>
+                        </ul>
+
+                        <div class="service-metric">
+                            <span class="metric-value">50k+</span>
+                            <span class="metric-label">Leaders Inspired<br>Worldwide</span>
+                        </div>
+
+                        <div style="margin-top: 32px;">
+                            <a href="#inquire" class="btn">Check Availability</a>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- End Carousel -->
+
+        </div>
+    </section>
+
+    <section id="case-studies" class="section-padding hidden-section">
+        <div class="container">
+            <div class="text-center">
+                <span class="section-subtitle">Proven Results</span>
+                <h2 class="section-title">Client Impact</h2>
+            </div>
+
+            <div class="case-grid">
+                <div class="case-card stagger-1">
+                    <h4 class="case-title">Tech Giant (Asia Pacific)</h4>
+                    <span class="stat-highlight">+45%</span>
+                    <p style="font-weight: 700; color: #fff; margin-bottom: 10px;">Employee Retention Rate</p>
+                    <p style="color: var(--text-gray); font-size: 0.9rem;">Following a 6-month leadership transformation
+                        program focused on middle-management empathy and communication.</p>
+                </div>
+                <div class="case-card stagger-2">
+                    <h4 class="case-title">European Financial Firm</h4>
+                    <span class="stat-highlight">2x</span>
+                    <p style="font-weight: 700; color: #fff; margin-bottom: 10px;">Sales Velocity</p>
+                    <p style="color: var(--text-gray); font-size: 0.9rem;">Resulting from a strategic alignment workshop
+                        that unified the sales and marketing departments under one vision.</p>
+                </div>
+                <div class="case-card stagger-3">
+                    <h4 class="case-title">Global Non-Profit</h4>
+                    <span class="stat-highlight">100%</span>
+                    <p style="font-weight: 700; color: #fff; margin-bottom: 10px;">Board Alignment</p>
+                    <p style="color: var(--text-gray); font-size: 0.9rem;">Facilitated a critical 3-day retreat to
+                        resolve internal conflict and establish a 5-year strategic roadmap.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="process" class="section-padding hidden-section">
+        <div class="container">
+            <div class="text-center">
+                <span class="section-subtitle">How We Work</span>
+                <h2 class="section-title">The Process</h2>
+            </div>
+
+            <div class="process-steps">
+                <div class="step-item stagger-1">
+                    <div class="step-number">01</div>
+                    <h4>Consult</h4>
+                    <p>We begin with a deep-dive audit to understand your specific challenges, culture, and goals.</p>
+                </div>
+                <div class="step-item stagger-2">
+                    <div class="step-number">02</div>
+                    <h4>Design</h4>
+                    <p>We create a bespoke strategy or curriculum tailored to address your gaps and opportunities.</p>
+                </div>
+                <div class="step-item stagger-3">
+                    <div class="step-number">03</div>
+                    <h4>Deliver</h4>
+                    <p>Whether it's coaching or a keynote, we execute with precision, energy, and engagement.</p>
+                </div>
+                <div class="step-item stagger-1">
+                    <div class="step-number">04</div>
+                    <h4>Sustain</h4>
+                    <p>We provide follow-up resources and check-ins to ensure long-term behavioral change.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </section>
+
+    <section id="explore" class="section-padding hidden-section"
+        style="background: var(--bg-body); border-top: 1px solid var(--border-subtle);">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 40px;">
+                <span class="section-subtitle">More to See</span>
+                <h2 class="section-title">Explore the Site</h2>
+            </div>
+            <!-- Using a generic grid class if available, or custom style -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+                <a href="about.html" class="nav-card stagger-1">
+                    <div>
+                        <i class="fas fa-user-tie" style="font-size: 24px; color:#fff; margin-bottom: 16px;"></i>
+                        <h3>About Caroline</h3>
+                        <p>Learn about my philosophy, background, and approach to leadership.</p>
+                    </div>
+                    <span class="nav-link-text">Read Story <i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="contact.html" class="nav-card stagger-2">
+                    <div>
+                        <i class="fas fa-envelope-open-text"
+                            style="font-size: 24px; color:#fff; margin-bottom: 16px;"></i>
+                        <h3>Start a Project</h3>
+                        <p>Have a specific need? Let's discuss how we can collaborate.</p>
+                    </div>
+                    <span class="nav-link-text">Contact Now <i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="index.html" class="nav-card stagger-3">
+                    <div>
+                        <i class="fas fa-home" style="font-size: 24px; color:#fff; margin-bottom: 16px;"></i>
+                        <h3>Home</h3>
+                        <p>Return to the main overview of services and impact.</p>
+                    </div>
+                    <span class="nav-link-text">Go Home <i class="fas fa-arrow-right"></i></span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="inquire" class="hidden-section">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 40px;">
+                <span class="section-subtitle">Start the Conversation</span>
+                <h2 class="section-title">Request a Quote</h2>
+                <p style="color: #ccc;">Tell us about your needs, and we will get back to you with a tailored proposal.
+                </p>
+            </div>
+
+            <div class="quote-form-container">
+                <form>
+                    <div class="form-grid">
+                        <input type="text" placeholder="First Name" required>
+                        <input type="text" placeholder="Last Name" required>
+                    </div>
+                    <div class="form-grid">
+                        <input type="email" placeholder="Work Email" required>
+                        <input type="text" placeholder="Company Name" required>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <select required style="color: #ccc;">
+                            <option value="" disabled selected>Interested Service</option>
+                            <option value="coaching">Executive Coaching</option>
+                            <option value="training">Corporate Training</option>
+                            <option value="keynote">Keynote Speaking</option>
+                            <option value="other">Other / Custom</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom: 30px;">
+                        <textarea rows="5" placeholder="Tell us about your project or event details..."
+                            required></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn" style="width: 100%; font-size: 1.1rem;">Submit
+                            Inquiry</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Intersection Observer for Entrance Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show-section');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Navbar Scroll Effect Removed
+
+        // Trigger Hero Animation Immediately
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const hero = document.getElementById('services-hero');
+                if (hero) hero.classList.add('show-section');
+            }, 100);
+        });
+
+        const sections = document.querySelectorAll('.hidden-section');
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+
+</html>
